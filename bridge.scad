@@ -91,26 +91,17 @@ module ramp() {
 
 module complete() {
 
-    difference() {
-
-        // Things that exist
-        union() {
-            translate( v = [ 0, -ramp/2 -river/2, 0 ]) {
+    // Things that exist
+    union() {
+        translate( v = [ 0, -ramp/2 -river/2 +0.1, 0 ]) {
+            ramp();
+        }
+        bridge();
+        translate( v = [ 0, +ramp/2 +river/2 -0.1, 0 ]) {
+            rotate( a = [0,0,180] ) {
                 ramp();
             }
-            bridge();
-            translate( v = [ 0, +ramp/2 +river/2, 0 ]) {
-                rotate( a = [0,0,180] ) {
-                    ramp();
-                }
-            }
         }
-
-        // Things that don't exist
-        union() {
-
-        }
-    
     }
 
 }
