@@ -21,7 +21,7 @@
 height   =  8; // Height of bridge
 width    = 10; // Width of bridge
 river    = 15; // Width of river
-ramp     = 30; // Length of ramp
+ramp     = 15; // Length of ramp
 layer    = 0.3; // Printer layer height
 circular = 60; // Circular precision
 
@@ -35,7 +35,7 @@ module bridge() {
                 translate( v = [-width/2, -river/2, 0] ) {
                     cube( size = [width, river, height*2] );
                 }
-                translate( v = [ -width/2, 0, (height -river*2) * 0.945]) {
+                translate( v = [ -width/2, 0, (height -river*2) * 0.950]) {
                     rotate( a = [ 90, 0, 90] ) {
                         cylinder( r = river*2, h = width, $fn = circular );
                     }
@@ -44,16 +44,14 @@ module bridge() {
         }
 
         // Things that don't exist
-        union() { // --------------------------v
+        // Needs formula to cope with various river widths and bridge heights
+        //                                     |
+        union() { //                           v
             translate( v = [ -width/2 -0.1, 0, 0]) {
                 rotate( a = [ 90, 0, 90] ) {
                     cylinder( r = river/2, h = width + 0.2, $fn = circular );
                 }
             }
-            translate( v = [ -width/2 -0.1, -river/2-0.1, height/3 - height/2]) {
-                cube( size = [width+0.2, river+0.2, height/2] );
-            }
-
         }
     
     }
@@ -67,14 +65,22 @@ module ramp() {
 
             // Things that exist
             union() {
-                cube( [ width, ramp, height ] );
+                intersection() {
+                    cube( [ width, ramp, height ] );
+                    translate( v = [ 0, ramp, -ramp*0.75 + height] ) {
+                        rotate( a = [ 90, 0, 90] ) {
+                            cylinder( r = ramp*0.75, h = width, $fn = circular );
+                        }
+                    }
+                }
+                cube( [ width, ramp, height/2 ] );
             }
 
             // Things to be cut out
             union() {
-                translate( v = [ -0.1, 0, ramp*2 + layer]) {
+                translate( v = [ -0.1, 0, ramp + layer]) {
                     rotate( a = [ 90, 0, 90] ) {
-                        cylinder( r = ramp*2 + layer, h = width + 0.2, $fn = circular );
+                        cylinder( r = ramp, h = width + 0.2, $fn = circular );
                     }
                 }
             }
