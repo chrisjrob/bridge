@@ -18,10 +18,10 @@
 
 
 // Bridge Parameters
-height   =  8; // Height of bridge
-width    = 10; // Width of bridge
-river    = 15; // Width of river
-ramp     = 15; // Length of ramp
+height   = 6; // Height of bridge
+width    = 8; // Width of bridge
+river    = 11; // Width of river
+ramp     = 8; // Length of ramp
 layer    = 0.3; // Printer layer height
 circular = 60; // Circular precision
 
