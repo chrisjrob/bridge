@@ -14,6 +14,7 @@ This is a simple model bridge, printable in a single part, or in three parts for
 Status
 ------
 Work in progress.
+Does not work for all parameters, ramps need improving.
 
 Instructions
 ------------
